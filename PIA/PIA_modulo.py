@@ -1,9 +1,7 @@
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 import requests
 import json
 import pandas
-import numpy as np
 import jupyter
 
 def actualizar_jsons_de_pokemones(api)->None:
