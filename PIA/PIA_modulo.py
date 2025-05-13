@@ -7,22 +7,21 @@ import jupyter
 def actualizar_jsons_de_pokemones(api)->None:
     response = requests.get(api+'pokemon/?limit=100')
     if response.status_code == 200:
-        with open(f'cache_pokemon.json', 'w') as f:
+        with open(f'PIA\\cache_pokemon.json', 'w') as f:
             json.dump(response.json(), f, indent=4)
     else:
         print(f'Error en actualizacion del json \'cache_pokemon.json\'\nEl status_code es: {response.status_code}\n')
 
     urls = list()
-    with open('cache_pokemon.json', 'r') as f:
+    with open('PIA\\cache_pokemon.json', 'r') as f:
         for pokemon in json.loads(f.read())['results']:
-            with open(f'{pokemon['name']}.json','w') as g:
-                print(pokemon['url'])
+            with open(f'PIA\\{pokemon['name']}.json','w') as g:
                 json.dump((requests.get(pokemon['url'])).json(),g,indent=4)
 
 # Extrae todas las posibles variables de un endpoint
 def extraer_names_de_endpoint_a_list(endpoint:str)->list:
     names = []
-    with open(f'cache_{endpoint}.json', 'r') as f:
+    with open(f'PIA\\cache_{endpoint}.json', 'r') as f:
         contenido = f.read()
         dictionary = json.loads(contenido)
         for x in dictionary['results']:
@@ -32,7 +31,7 @@ def extraer_names_de_endpoint_a_list(endpoint:str)->list:
 # Busca el API correspondiente al endpoint y name ingresado
 # Ejemplo: endpoint=pokemon name='bulbasaur' retorna el contenido de 'https://pokeapi.co/api/v2/pokemon/1/'
 def extraer_informacion_json_a_dict(json_name:str)->dict:
-    with open(f'{json_name}.json', 'r') as f:
+    with open(f'PIA\\{json_name}.json', 'r') as f:
         dictionary = json.loads(f.read())
     return dictionary
 
@@ -66,17 +65,18 @@ def crear_grafica_de_barras_de_alturas_pokemones(pokemones:list):
     
     # Update del diccionario 'stats'
     for pokemon in pokemones:
-        stats.update({pokemon:extraer_informacion_json_a_dict(pokemon)['height']})
+        stats.update({pokemon:extraer_informacion_json_a_dict(pokemon)['height']*10})
     
     # Configuracion pyplot
     x = [nombre for nombre, valor in stats.items()]
     y = [valor for nombre, valor in stats.items()]
     fig,ax = plt.subplots()
-    p = ax.bar(x,y,width=1,color='green',edgecolor='black',tick_label=[x.capitalize() for x in pokemones])
+    p = ax.bar(x,y,width=1,color='green',edgecolor='black',tick_label=[x.capitalize() for x in pokemones],label='Cms')
     ax.set_title('Alturas de los Pokemones')
     ax.set_ylabel('Altura')
     ax.bar_label(p, label_type='center')
     fig.savefig('Grafica de alturas de pokemones.pdf')
+    ax.legend()
     plt.show()
 
 def crear_grafica_de_barras_de_pesos_pokemones(pokemones:list):
@@ -84,17 +84,18 @@ def crear_grafica_de_barras_de_pesos_pokemones(pokemones:list):
     
     # Update del diccionario 'stats'
     for pokemon in pokemones:
-        stats.update({pokemon:extraer_informacion_json_a_dict(pokemon)['weight']})
+        stats.update({pokemon:extraer_informacion_json_a_dict(pokemon)['weight']/10})
     
     # Configuracion pyplot
     x = [nombre for nombre, valor in stats.items()]
     y = [valor for nombre, valor in stats.items()]
     fig,ax = plt.subplots()
-    p = ax.bar(x,y,width=1,color='yellow',edgecolor='black',tick_label=[x.capitalize() for x in pokemones])
+    p = ax.bar(x,y,width=1,color='yellow',edgecolor='black',tick_label=[x.capitalize() for x in pokemones], label='Kgs')
     ax.set_title('Peso de los Pokemones')
     ax.set_ylabel('Peso')
     ax.bar_label(p, label_type='center')
     fig.savefig('Grafica de barras de pesos de pokemones.pdf')
+    ax.legend()
     plt.show()
 
 def exportar_excel_info_pokemones(pokemones:list):
