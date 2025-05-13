@@ -75,8 +75,8 @@ def crear_grafica_de_barras_de_alturas_pokemones(pokemones:list):
     ax.set_title('Alturas de los Pokemones')
     ax.set_ylabel('Altura')
     ax.bar_label(p, label_type='center')
-    fig.savefig('graficas\\Grafica de alturas de pokemones.pdf')
     ax.legend()
+    fig.savefig('graficas\\Grafica de alturas de pokemones.pdf')
     plt.show()
 
 def crear_grafica_de_barras_de_pesos_pokemones(pokemones:list):
@@ -94,8 +94,8 @@ def crear_grafica_de_barras_de_pesos_pokemones(pokemones:list):
     ax.set_title('Peso de los Pokemones')
     ax.set_ylabel('Peso')
     ax.bar_label(p, label_type='center')
-    fig.savefig('graficas\\Grafica de barras de pesos de pokemones.pdf')
     ax.legend()
+    fig.savefig('graficas\\Grafica de barras de pesos de pokemones.pdf')
     plt.show()
 
 def exportar_excel_info_pokemones(pokemones:list):
