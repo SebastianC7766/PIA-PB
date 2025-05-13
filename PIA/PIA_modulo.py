@@ -57,7 +57,7 @@ def crear_grafica_de_barras_de_atributo_pokemones(pokemones:list,atributo:str):
     ax.set_title(f'{atributo.capitalize()} de los Pokemones')
     ax.set_ylabel(f'{atributo.capitalize()}')
     ax.bar_label(p, label_type='center')
-    fig.savefig(f'Grafica de barras de {atributo} de pokemones.pdf')
+    fig.savefig(f'PIA\\Grafica de barras de {atributo} de pokemones.pdf')
     plt.show()
 
 def crear_grafica_de_barras_de_alturas_pokemones(pokemones:list):
@@ -75,7 +75,7 @@ def crear_grafica_de_barras_de_alturas_pokemones(pokemones:list):
     ax.set_title('Alturas de los Pokemones')
     ax.set_ylabel('Altura')
     ax.bar_label(p, label_type='center')
-    fig.savefig('Grafica de alturas de pokemones.pdf')
+    fig.savefig('PIA\\Grafica de alturas de pokemones.pdf')
     ax.legend()
     plt.show()
 
@@ -94,7 +94,7 @@ def crear_grafica_de_barras_de_pesos_pokemones(pokemones:list):
     ax.set_title('Peso de los Pokemones')
     ax.set_ylabel('Peso')
     ax.bar_label(p, label_type='center')
-    fig.savefig('Grafica de barras de pesos de pokemones.pdf')
+    fig.savefig('PIA\\Grafica de barras de pesos de pokemones.pdf')
     ax.legend()
     plt.show()
 
@@ -107,7 +107,7 @@ def exportar_excel_info_pokemones(pokemones:list):
             temp.append(stat)
         data.append(temp)
     dataframe = pandas.DataFrame(data,columns=columns)
-    dataframe.to_excel('info pokemones.xlsx')
+    dataframe.to_excel('PIA\\info pokemones.xlsx')
 
 def obtener_media(pokemones:list, stat:str)->float:
     lista = list()
