@@ -7,21 +7,21 @@ import jupyter
 def actualizar_jsons_de_pokemones(api)->None:
     response = requests.get(api+'pokemon/?limit=100')
     if response.status_code == 200:
-        with open(f'PIA\\cache_pokemon.json', 'w') as f:
+        with open(f'cache\\cache_pokemon.json', 'w') as f:
             json.dump(response.json(), f, indent=4)
     else:
         print(f'Error en actualizacion del json \'cache_pokemon.json\'\nEl status_code es: {response.status_code}\n')
 
     urls = list()
-    with open('PIA\\cache_pokemon.json', 'r') as f:
+    with open('cache\\cache_pokemon.json', 'r') as f:
         for pokemon in json.loads(f.read())['results']:
-            with open(f'PIA\\{pokemon['name']}.json','w') as g:
+            with open(f'cache\\{pokemon['name']}.json','w') as g:
                 json.dump((requests.get(pokemon['url'])).json(),g,indent=4)
 
 # Extrae todas las posibles variables de un endpoint
 def extraer_names_de_endpoint_a_list(endpoint:str)->list:
     names = []
-    with open(f'PIA\\cache_{endpoint}.json', 'r') as f:
+    with open(f'cache\\cache_{endpoint}.json', 'r') as f:
         contenido = f.read()
         dictionary = json.loads(contenido)
         for x in dictionary['results']:
@@ -31,7 +31,7 @@ def extraer_names_de_endpoint_a_list(endpoint:str)->list:
 # Busca el API correspondiente al endpoint y name ingresado
 # Ejemplo: endpoint=pokemon name='bulbasaur' retorna el contenido de 'https://pokeapi.co/api/v2/pokemon/1/'
 def extraer_informacion_json_a_dict(json_name:str)->dict:
-    with open(f'PIA\\{json_name}.json', 'r') as f:
+    with open(f'cache\\{json_name}.json', 'r') as f:
         dictionary = json.loads(f.read())
     return dictionary
 
@@ -57,7 +57,7 @@ def crear_grafica_de_barras_de_atributo_pokemones(pokemones:list,atributo:str):
     ax.set_title(f'{atributo.capitalize()} de los Pokemones')
     ax.set_ylabel(f'{atributo.capitalize()}')
     ax.bar_label(p, label_type='center')
-    fig.savefig(f'PIA\\Grafica de barras de {atributo} de pokemones.pdf')
+    fig.savefig(f'graficas\\Grafica de barras de {atributo} de pokemones.pdf')
     plt.show()
 
 def crear_grafica_de_barras_de_alturas_pokemones(pokemones:list):
@@ -75,7 +75,7 @@ def crear_grafica_de_barras_de_alturas_pokemones(pokemones:list):
     ax.set_title('Alturas de los Pokemones')
     ax.set_ylabel('Altura')
     ax.bar_label(p, label_type='center')
-    fig.savefig('PIA\\Grafica de alturas de pokemones.pdf')
+    fig.savefig('graficas\\Grafica de alturas de pokemones.pdf')
     ax.legend()
     plt.show()
 
@@ -94,7 +94,7 @@ def crear_grafica_de_barras_de_pesos_pokemones(pokemones:list):
     ax.set_title('Peso de los Pokemones')
     ax.set_ylabel('Peso')
     ax.bar_label(p, label_type='center')
-    fig.savefig('PIA\\Grafica de barras de pesos de pokemones.pdf')
+    fig.savefig('graficas\\Grafica de barras de pesos de pokemones.pdf')
     ax.legend()
     plt.show()
 
@@ -107,14 +107,15 @@ def exportar_excel_info_pokemones(pokemones:list):
             temp.append(stat)
         data.append(temp)
     dataframe = pandas.DataFrame(data,columns=columns)
-    dataframe.to_excel('PIA\\info pokemones.xlsx')
+    dataframe.to_excel('excel\\info pokemones.xlsx')
 
 def obtener_media(pokemones:list, stat:str)->float:
     lista = list()
     for pokemon in pokemones:
         lista.append(extraer_stats_pokemon_a_dict(pokemon)[f'{stat}'])
-
-    return sum(lista)/len(lista)
+    media = sum(lista)/len(lista)
+    print(f'Media de {stat} de pokemones ingresados: {media}')
+    return media
 
 def obtener_mediana(pokemones:list, stat:str)->float:
     lista = list()
@@ -130,6 +131,7 @@ def obtener_mediana(pokemones:list, stat:str)->float:
         mediana = lista[(len(lista)//2)]
     elif mediana_exacta == False:
         mediana = ((lista[int((len(lista)/2)-1)])+(lista[int(len(lista)/2)]))/2
+    print(f'Mediana de {stat} de pokemones ingresados: {mediana}')
     return mediana
 
 def obtener_moda(pokemones:list, stat:str)->float:
@@ -149,4 +151,5 @@ def obtener_moda(pokemones:list, stat:str)->float:
         if value > repeticiones:
             repeticiones = value
             moda = float(key)
+    print(f'Moda de {stat} de pokemones ingresados: {moda}')
     return moda
