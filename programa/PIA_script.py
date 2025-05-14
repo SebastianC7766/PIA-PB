@@ -3,7 +3,7 @@ import PIA_modulo
 api = 'https://pokeapi.co/api/v2/'
 
 # Actualizacion de API
-# PIA_modulo.actualizar_jsons_de_pokemones(api)
+PIA_modulo.actualizar_jsons_de_pokemones(api)
 
 # Exportacion a excel
 PIA_modulo.exportar_excel_info_pokemones(PIA_modulo.extraer_names_de_endpoint_a_list('pokemon'))

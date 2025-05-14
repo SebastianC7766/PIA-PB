@@ -6,12 +6,7 @@ Proyecto basado en la creacion de un programa que utilice informacion de PokeAPI
 
 ## Integrantes
  - Sebastian Calderon Carrillo **2087472**
- - Diego Ernesto Camarillo Salazar **1996387**
  - Hector Alan Hernandez Gonzalez **2082913**
- - Joel de Jesus Galvan Campos **2159634**
- - Leonardo Isaac Vela Cortes **2154477**
- - Luis Antonio Rocha Escobedo **1807769**
-
 
 ## FAQ
 
@@ -95,8 +90,3 @@ Imprime y retorna la moda del stat ingresado de todos los pokemones ingresados.
 | :-------- | :------- | :------------------------- |
 | `pokemones` | `list` | **Required**. Lista de strings de cada uno de los nombres de los pokemones a evaluar|
 | `stat` | `string` | **Required**. Atributo a evaluar (hp, defense, speed, etc.)|
-
-## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
-
