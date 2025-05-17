@@ -8,6 +8,8 @@ Proyecto basado en la creacion de un programa que utilice informacion de PokeAPI
  - Sebastian Calderon Carrillo **2087472**
  - Hector Alan Hernandez Gonzalez **2082913**
  - Leonardo Isaac Vela Cortes **2154477**
+ - Diego Ernesto Camarillo Salazar **1996387**
+ - Joel De Jesus Galvan Campos **2159634**
 
 ## FAQ
 
